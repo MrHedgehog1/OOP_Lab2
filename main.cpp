@@ -11,7 +11,7 @@ public:
     Student(std::string name, std::string surname, int year);
     //Student(const Student &student);
     Student(std::string name, std::string surname);
-    Student(std::string surname, int year);
+    Student(std::string name, int year);
     ~Student();
     void getFullName();
     int getCourse();
@@ -35,9 +35,9 @@ Student::Student(std::string name, std::string surname)
     this->_surname = surname;
     _year = 0;
 }
-Student::Student(std::string book, int year)
+Student::Student(std::string name, int year)
 {
-    this->_surname = book;
+    this->_surname = name;
     this->_year = year;
 }
 void Student::getFullName() {
@@ -135,7 +135,6 @@ int main() {
         std::cout << "\t2. Создать запись о студенте с полными данными - имя, фамилия, год поступления.\n";
         std::cout << "\t3. Создать запись о студенте с частичными данными - имя студента и фамилия.\n";
         std::cout << "\t4. Создать запись о студенте с частичными данными - имя студента и год поступления.\n";
-        //std::cout << "\t5. Создать запись о студенте с частичными данными - первая буква имени автора и название книги.\n";
         std::cout << "\t5. Редактировать запись о студенте - изменить или ввести имя студенте.\n";
         std::cout << "\t6. Редактировать запись о студенте - изменить или ввести фамилию студенте.\n";
         std::cout << "\t7. Редактировать запись о студенте - изменить или ввести год поступления студенте.\n";
