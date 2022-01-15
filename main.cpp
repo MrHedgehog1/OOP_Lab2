@@ -8,8 +8,9 @@ private:
     std::string _surname;
     int _year;
 public:
+    Student();
+    Student(const Student &student); // конструктор копирования
     Student(std::string name, std::string surname, int year);
-    //Student(const Student &student);
     Student(std::string name, std::string surname);
     Student(std::string name, int year);
     ~Student();
@@ -24,6 +25,10 @@ public:
 
     void display_info();
 };
+Student::Student()
+{
+    int _year = 0;
+}
 Student::Student(std::string name, std::string surname, int year){
     _name = name;
     _surname = surname;
@@ -91,6 +96,10 @@ Student::~Student() {
 
 }
 
+Student::Student(const Student &student)  : _name(student._name),_surname(student._surname), _year(student._year){
+
+}
+
 std::string enter_name()
 {
     std::string name;
@@ -125,6 +134,7 @@ int main() {
     students_entry.push_back(Student(name="Иван", surname="Иванов", year=2021));
     students_entry.push_back(Student(name="Пётр", surname="Петров", year=2020));
     students_entry.push_back(Student(name="Степан", surname="Сидоров", year=2019));
+    students_entry.push_back(Student(students_entry[0])); // вызывается конструктор копирования
 
     bool exit = false;
     char command;
@@ -138,7 +148,8 @@ int main() {
         std::cout << "\t5. Редактировать запись о студенте - изменить или ввести имя студенте.\n";
         std::cout << "\t6. Редактировать запись о студенте - изменить или ввести фамилию студенте.\n";
         std::cout << "\t7. Редактировать запись о студенте - изменить или ввести год поступления студенте.\n";
-        std::cout << "\t8. Посмотреть данные о записанных студентaх.\n";
+        std::cout << "\t8. Скопировать запись о студенте.\n";
+        std::cout << "\t9. Посмотреть данные о записанных студентaх.\n";
         std::cout << "\t0. Выход из программы\n";
         std::cout << "Команда: ";
         std::cin >> command;
@@ -218,8 +229,23 @@ int main() {
                     std::cout << "Введен неверный номер записи." << std::endl;
                 }
                 break;
-
             case '8':
+                for (i = 0; i < size(students_entry); i++) {
+                    std::cout << i << " ";
+                    students_entry[i].getFullName();
+                    std::cout << "Курс: " << students_entry[i].getCourse() << std::endl;
+                }
+                std::cout << "Какую по номеру запись вы хотите копировать ?\n";
+                std::cin >> student_index;
+                std::cin.ignore();
+                if (student_index >= 0 && student_index < size(students_entry)) {
+                    students_entry.push_back(Student(students_entry[student_index])); // здесь работает конструктор копирования
+                } else {
+                    std::cout << "Введен неверный номер записи." << std::endl;
+                }
+                break;
+
+            case '9':
                 for (i = 0; i < size(students_entry); i++) {
                     students_entry[i].display_info();
                 }
